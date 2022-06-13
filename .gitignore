@@ -1,0 +1,7 @@
+/**/.terraform*
+*.tfstate
+*.tfstate*
+plan
+vars.auto.tfvars
+
+*.auto.pkrvars.hcl
