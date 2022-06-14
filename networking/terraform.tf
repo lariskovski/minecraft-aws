@@ -49,3 +49,67 @@ resource "aws_security_group" "custom" {
     ipv6_cidr_blocks = ["::/0"]
   }
 }
+
+
+# Allow EC2 instances to assume the role
+data "aws_iam_policy_document" "assume_role_policy" {
+  statement {
+    actions = [
+      "sts:AssumeRole"
+    ]
+    effect = "Allow"
+    principals {
+      type        = "Service"
+      identifiers = ["ec2.amazonaws.com"]
+    }
+
+  }
+}
+
+# Create the policy which allows other actions for the EC2 instance
+data "aws_iam_policy_document" "ssm_policy" {
+  statement {
+    actions = [
+      "ssm:DescribeAssociation",
+      "ssm:GetDeployablePatchSnapshotForInstance",
+      "ssm:GetDocument",
+      "ssm:DescribeDocument",
+      "ssm:GetManifest",
+      "ssm:GetParameter",
+      "ssm:GetParameters",
+      "ssm:ListAssociations",
+      "ssm:ListInstanceAssociations",
+      "ssm:PutInventory",
+      "ssm:PutComplianceItems",
+      "ssm:PutConfigurePackageResult",
+      "ssm:UpdateAssociationStatus",
+      "ssm:UpdateInstanceAssociationStatus",
+      "ssm:UpdateInstanceInformation"]
+    resources = ["*"]
+  }
+
+  statement {
+    actions = [
+      "ssmmessages:CreateControlChannel",
+      "ssmmessages:CreateDataChannel",
+      "ssmmessages:OpenControlChannel",
+      "ssmmessages:OpenDataChannel"]
+    resources = ["*"]
+  }
+}
+
+resource "aws_iam_role" "this" {
+  name = "SSMInstanceProfile"
+  assume_role_policy = data.aws_iam_policy_document.assume_role_policy.json
+  
+  # Attach the policy
+  inline_policy {
+    policy = data.aws_iam_policy_document.ssm_policy.json
+  }
+}
+
+# IAM Instance Profile
+resource "aws_iam_instance_profile" "this" {
+  name = "SSMInstanceProfile"
+  role = aws_iam_role.this.name
+}
