@@ -5,3 +5,6 @@ plan
 vars.auto.tfvars
 
 *.auto.pkrvars.hcl
+
+todo
+files/*
