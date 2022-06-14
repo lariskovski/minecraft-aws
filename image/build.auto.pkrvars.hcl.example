@@ -1,0 +1,9 @@
+region  = "us-east-1"
+project = "minecraft"
+
+ami_name  = "amzn2-ami-minecraft-base"
+
+subnet_id = "subnet-1234"
+vpc_id    = "vpc-12345"
+
+security_group_ids = ["sg-0000", "sg-11111"]
