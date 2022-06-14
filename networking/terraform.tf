@@ -66,46 +66,11 @@ data "aws_iam_policy_document" "assume_role_policy" {
   }
 }
 
-# Create the policy which allows other actions for the EC2 instance
-data "aws_iam_policy_document" "ssm_policy" {
-  statement {
-    actions = [
-      "ssm:DescribeAssociation",
-      "ssm:GetDeployablePatchSnapshotForInstance",
-      "ssm:GetDocument",
-      "ssm:DescribeDocument",
-      "ssm:GetManifest",
-      "ssm:GetParameter",
-      "ssm:GetParameters",
-      "ssm:ListAssociations",
-      "ssm:ListInstanceAssociations",
-      "ssm:PutInventory",
-      "ssm:PutComplianceItems",
-      "ssm:PutConfigurePackageResult",
-      "ssm:UpdateAssociationStatus",
-      "ssm:UpdateInstanceAssociationStatus",
-      "ssm:UpdateInstanceInformation"]
-    resources = ["*"]
-  }
-
-  statement {
-    actions = [
-      "ssmmessages:CreateControlChannel",
-      "ssmmessages:CreateDataChannel",
-      "ssmmessages:OpenControlChannel",
-      "ssmmessages:OpenDataChannel"]
-    resources = ["*"]
-  }
-}
-
 resource "aws_iam_role" "this" {
   name = "SSMInstanceProfile"
   assume_role_policy = data.aws_iam_policy_document.assume_role_policy.json
   
-  # Attach the policy
-  inline_policy {
-    policy = data.aws_iam_policy_document.ssm_policy.json
-  }
+  managed_policy_arns = ["arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM"]
 }
 
 # IAM Instance Profile
