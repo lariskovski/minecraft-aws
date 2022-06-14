@@ -26,6 +26,10 @@ resource "aws_instance" "ec2" {
   vpc_security_group_ids = [var.sg_application_id, var.sg_default_id] # default sg for efs connection
   subnet_id              = var.subnet_id
 
+  root_block_device {
+    volume_type = "gp3"
+  }
+
   tags = {
     Name = "${var.project_name}-server"
   }
