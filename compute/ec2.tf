@@ -26,11 +26,8 @@ resource "aws_instance" "ec2" {
   vpc_security_group_ids = [var.sg_application_id, var.sg_default_id] # default sg for efs connection
   subnet_id              = var.subnet_id
 
-  # Combines tags with optionally provided additional tags
-  tags = merge(
-    var.additional_tags,
-    {
-      Name = "${var.project_name}-server"
-    },
-  )
+  tags = {
+    Name = "${var.project_name}-server"
+  }
+
 }

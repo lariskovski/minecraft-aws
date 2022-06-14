@@ -1,0 +1,11 @@
+region= "us-east-1"
+availability_zone_name = "us-east-1c"
+
+sg_default_id= "sg-1111111"
+sg_application_id = "sg-22222222"
+
+
+subnet_id  = "subnet-1234"
+project_name = "minecraft"
+instance_type = "t2.small"
+
