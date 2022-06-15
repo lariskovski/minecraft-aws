@@ -18,36 +18,35 @@
 ~~~~
 export AWS_ACCESS_KEY_ID=XXXXXXXXXXXXXXXXXX
 export AWS_SECRET_ACCESS_KEY=ZZZZZZZZZZZZZZZZZZZZZZZZ
-export AWS_DEFAULT_REGION=us-east-1
 ~~~~
 
-- Deploy networking resources
+- Edit env.sh accordingly
 
-- Deploy data resources 
+- Deploy data resources: `make data-plan` and `make data-apply` 
 
-- Build the image
+- Build the image: `make packer-build`
 
-- Deploy compute resources
+- Deploy compute resources:  `make compute-plan` and `make compute-apply`
 
-## Packer
+## What does Packer do?
 
-Packer creates a base image for our server on top of Amazon Linux AMI. It setups up anything not data related.
+Packer creates a base image for our server on top of Amazon Linux AMI 2. It setups up anything not data-related.
 
-- Run `packer init packer/` on the firest setup or if there are changes to packer-setup-script.sh
+- Run `packer init` on the firest setup or if there are changes to packer-setup-script.sh
 
 - Format and validate the Packer template `packer fmt .` and `packer validate .`
 
 - Build the image `packer build .`
 
-## Terraform
+## What about Terraform?
 
-- Create terraform infra including:
+- Creates the infra including:
 
-- Networking: SG with port 22 and 25565 + make sure to use the default sec group to EFS can access the EC2
+    - Networking: SG with port 22 and 25565 + make sure to use the default sec group to EFS can access the EC2
 
-- Data: EFS to hold world data across EC2 instances
+    - Data: EFS to hold data across EC2 instances + EFS DNS entry on Route 53
 
-- Compute: EC2 using Packer base image
+    - Compute: EC2 using Packer base image
 
 ## Sources
 
