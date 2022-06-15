@@ -28,6 +28,8 @@ export AWS_SECRET_ACCESS_KEY=ZZZZZZZZZZZZZZZZZZZZZZZZ
 
 - Deploy compute resources:  `make compute-plan` and `make compute-apply`
 
+- Optionally edit the cloudflare-update.sh file environments. The script is used in a target to automatically update a Cloudflare dns record with the new EC2's public IP. `make cloudflare-update`
+
 ## What does Packer do?
 
 Packer creates a base image for our server on top of Amazon Linux AMI 2. It setups up anything not data-related.

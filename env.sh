@@ -9,4 +9,5 @@ export TF_VAR_instance_type="t2.small"
 export PKR_VAR_project_name=$TF_VAR_project_name
 export PKR_VAR_region=$TF_VAR_region
 
-
+# Optional for make cloudflare-update
+# set the variables on the cloudflare-update.sh file
