@@ -3,15 +3,7 @@ variable "region" {
   type = string
 }
 
-variable "project" {
-  type = string
-}
-
-variable "ami_name" {
-  type = string
-}
-
-variable "vpc_id" {
+variable "project_name" {
   type = string
 }
 
@@ -19,6 +11,10 @@ variable "subnet_id" {
   type = string
 }
 
-variable "security_group_ids" {
-  type = list(string)
+variable "sg_default_id" {
+  type = string
+}
+
+variable "sg_application_id" {
+  type = string
 }

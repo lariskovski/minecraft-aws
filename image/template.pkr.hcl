@@ -8,14 +8,13 @@ packer {
 }
 
 source "amazon-ebs" "this" {
-  ami_name      = var.ami_name
+  ami_name      = "amzn2-ami-minecraft-base"
   region        = var.region
   instance_type = "t2.micro"
 
-  vpc_id    = var.vpc_id
   subnet_id = var.subnet_id
 
-  security_group_ids = var.security_group_ids # needs default SG for efs connection + another SG for SSH
+  security_group_ids = [var.sg_application_id, var.sg_default_id] # needs default SG for efs connection + another SG for SSH
 
   # Amazon Linux 2
   source_ami_filter {
@@ -31,7 +30,7 @@ source "amazon-ebs" "this" {
 }
 
 build {
-  name    = var.project
+  name    = var.project_name
   sources = ["source.amazon-ebs.this"]
 
   provisioner "shell" {

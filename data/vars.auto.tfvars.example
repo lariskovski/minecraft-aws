@@ -1,4 +1,3 @@
 region                 = "us-east-1"
 availability_zone_name = "us-east-1c"
-route53_zone_id        = "2134235452"
 

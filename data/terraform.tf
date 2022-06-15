@@ -5,11 +5,15 @@ resource "aws_efs_file_system" "efs-minecraft" {
   lifecycle_policy {
     transition_to_ia = "AFTER_14_DAYS"
   }
+}
 
+data "aws_route53_zone" "selected" {
+  name         = "minecraft.internal"
+  private_zone = true
 }
 
 resource "aws_route53_record" "this" {
-  zone_id         = var.route53_zone_id
+  zone_id         = data.aws_route53_zone.selected.id
   allow_overwrite = true
   name            = "efs.minecraft.internal"
   type            = "CNAME"
