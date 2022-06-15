@@ -37,7 +37,7 @@ Packer creates a base image for our server on top of Amazon Linux AMI. It setups
 
 - Format and validate the Packer template `packer fmt .` and `packer validate .`
 
-- Build the image `packer build -var-file="build.auto.pkrvars.hcl" .`
+- Build the image `packer build .`
 
 ## Terraform
 
