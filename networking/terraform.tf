@@ -29,13 +29,22 @@ resource "aws_route53_zone" "this" {
 # Create application SG (allow connection on ports: 22, 25565)
 resource "aws_security_group" "custom" {
   name        = var.project_name
-  description = "Allow application port inbound traffic"
+  description = "Allow SSH and application port inbound traffic"
   vpc_id      = data.aws_vpc.default.id
 
   ingress {
     description      = "Allow application port"
     from_port        = 25565
     to_port          = 25565
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+
+  ingress {
+    description      = "Allow SSH for Packer"
+    from_port        = 22
+    to_port          = 22
     protocol         = "tcp"
     cidr_blocks      = ["0.0.0.0/0"]
     ipv6_cidr_blocks = ["::/0"]
