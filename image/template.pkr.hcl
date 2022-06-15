@@ -34,7 +34,7 @@ build {
   sources = ["source.amazon-ebs.this"]
 
   provisioner "shell" {
-    script = "setup-script.sh"
+    script = var.script_path
 
     pause_before = "10s"
     timeout      = "10s"
