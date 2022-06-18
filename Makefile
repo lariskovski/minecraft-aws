@@ -74,7 +74,6 @@ compute-destroy:
 
 
 cloudflare-update:
-	terraform -chdir=$(COMPUTE_DIR) output -json | jq -r '@sh "\nexport AWS_INSTANCE_PUBLIC_IP=\(.instance_public_ip.value)"' >> temp-env.sh
-	sed -i "s/'//g" temp-env.sh
+	terraform -chdir=$(COMPUTE_DIR) output -json | jq -r '"\nexport AWS_INSTANCE_PUBLIC_IP=\(.instance_public_ip.value)"' >> temp-env.sh
 	source temp-env.sh && rm -f temp-env.sh
 	chmod +x cloudflare-update.sh && ./cloudflare-update.sh
