@@ -1,7 +1,7 @@
 # Each target runs on a single shell as opposed to every line running its own
 .ONESHELL:
 
-# There is no source on sh
+# Change shell to bash as there is no source command on sh
 SHELL := /bin/bash
 DATA_DIR := data
 COMPUTE_DIR := compute
@@ -18,7 +18,7 @@ endif
 data-init:
 	terraform -chdir=$(DATA_DIR) init --backend-config=$(BACKEND_CONFIG_FILE)
 
-data-validate: tf-init
+data-validate:
 	terraform -chdir=$(DATA_DIR) fmt .
 	terraform -chdir=$(DATA_DIR) validate .
 
@@ -26,10 +26,9 @@ data-plan: data-validate
 	source env.sh
 	terraform -chdir=$(DATA_DIR) plan -out plan
 
-data-apply: data-plan
-	# env | grep -i tf
-	# echo "terraform -chdir=$(DATA_DIR) apply plan"
+data-apply:
 	terraform -chdir=$(DATA_DIR) apply plan
+	rm -rf $(DATA_DIR)/plan
 
 
 # PACKER TEMPLATE
@@ -66,9 +65,9 @@ compute-plan: compute-validate
 	source temp-env.sh && rm -f temp-env.sh
 	terraform -chdir=$(COMPUTE_DIR) plan -out plan
 
-compute-apply: compute-plan
-	# echo "terraform -chdir=$(COMPUTE_DIR) apply plan"
+compute-apply:
 	terraform -chdir=$(COMPUTE_DIR) apply plan
+	rm -rf $(COMPUTE_DIR)/plan
 
 compute-destroy:
 	source env.sh
