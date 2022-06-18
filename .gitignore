@@ -1,8 +1,11 @@
+.vscode*
+
 /**/.terraform*
 *.tfstate
 *.tfstate*
 plan
 vars.auto.tfvars
+/**/.infracost*
 
 *.auto.pkrvars.hcl
 
