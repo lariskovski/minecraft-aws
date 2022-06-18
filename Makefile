@@ -25,9 +25,9 @@ data-plan: data-validate
 	terraform -chdir=$(DATA_DIR) plan -out plan
 
 data-apply: data-plan
-	env | grep -i tf
-	echo "terraform -chdir=$(DATA_DIR) apply plan"
-	# terraform -chdir=$(DATA_DIR) apply plan
+	# env | grep -i tf
+	# echo "terraform -chdir=$(DATA_DIR) apply plan"
+	terraform -chdir=$(DATA_DIR) apply plan
 
 
 # PACKER TEMPLATE
