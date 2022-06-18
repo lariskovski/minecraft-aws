@@ -28,7 +28,7 @@ resource "aws_route53_zone" "this" {
 
 # Create application SG (allow connection on ports: 22, 25565)
 resource "aws_security_group" "custom" {
-  name        = "minecraft-sg"
+  name        = "${var.project_name}-sg"
   description = "Allow SSH and application port inbound traffic"
   vpc_id      = data.aws_vpc.default.id
 
@@ -76,7 +76,7 @@ data "aws_iam_policy_document" "assume_role_policy" {
 }
 
 resource "aws_iam_role" "this" {
-  name               = "SSMInstanceProfile"
+  name               = "${var.project_name}-SSMInstanceProfile"
   assume_role_policy = data.aws_iam_policy_document.assume_role_policy.json
 
   managed_policy_arns = ["arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM"]
@@ -84,6 +84,6 @@ resource "aws_iam_role" "this" {
 
 # IAM Instance Profile
 resource "aws_iam_instance_profile" "this" {
-  name = "SSMInstanceProfile"
+  name = "${var.project_name}-SSMInstanceProfile"
   role = aws_iam_role.this.name
 }
