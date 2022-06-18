@@ -6,16 +6,18 @@ SHELL := /bin/bash
 DATA_DIR := data
 COMPUTE_DIR := compute
 IMAGE_DIR := image
+BACKEND_CONFIG_FILE=config.s3.tfbackend
+
 
 ifndef AWS_ACCESS_KEY_ID
 $(error AWS_ACCESS_KEY_ID is not set. Please set it before trying again.)
 endif
 
 
-tf-init:
-	terraform -chdir=$(DATA_DIR) init
-
 # DATA RESOUCES
+data-init:
+	terraform -chdir=$(DATA_DIR) init --backend-config=$(BACKEND_CONFIG_FILE)
+
 data-validate: tf-init
 	terraform -chdir=$(DATA_DIR) fmt .
 	terraform -chdir=$(DATA_DIR) validate .
@@ -51,6 +53,9 @@ packer-build: packer-validate
 
 
 # COMPUTE RESOURCES
+compute-init:
+	terraform -chdir=$(COMPUTE_DIR) init --backend-config=$(BACKEND_CONFIG_FILE)
+
 compute-validate:
 	terraform -chdir=$(COMPUTE_DIR) fmt .
 	terraform -chdir=$(COMPUTE_DIR) validate .

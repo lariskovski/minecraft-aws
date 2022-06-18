@@ -11,3 +11,5 @@ vars.auto.tfvars
 
 todo
 files/*
+
+config.s3.tfbackend

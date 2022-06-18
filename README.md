@@ -22,6 +22,8 @@ export AWS_SECRET_ACCESS_KEY=ZZZZZZZZZZZZZZZZZZZZZZZZ
 
 - Edit env.sh accordingly
 
+- Rename `config.s3.tfbackend.example` to `config.s3.tfbackend` and edit with the right S3 config. On both data and compute dirs.
+
 - Deploy data resources: `make data-plan` and `make data-apply` 
 
 - Build the image: `make packer-build`
