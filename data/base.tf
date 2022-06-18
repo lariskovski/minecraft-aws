@@ -28,7 +28,7 @@ resource "aws_route53_zone" "this" {
 
 # Create application SG (allow connection on ports: 22, 25565)
 resource "aws_security_group" "custom" {
-  name        = var.project_name
+  name        = "minecraft-sg"
   description = "Allow SSH and application port inbound traffic"
   vpc_id      = data.aws_vpc.default.id
 
