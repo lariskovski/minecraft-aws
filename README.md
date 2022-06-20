@@ -43,13 +43,23 @@ Packer creates a base image for our server on top of Amazon Linux AMI 2. It setu
 
 ## What about Terraform?
 
-- Creates the infra including:
+Creates the infra including:
 
-    - Networking: SG with port 22 and 25565 + make sure to use the default sec group to EFS can access the EC2
+- Networking: SG with port 22 and 25565 + make sure to use the default sec group to EFS can access the EC2
 
-    - Data: EFS to hold data across EC2 instances + EFS DNS entry on Route 53
+- Data: EFS to hold data across EC2 instances + EFS DNS entry on Route 53
 
-    - Compute: EC2 using Packer base image
+- Compute: EC2 using Packer base image
+
+## Cloudflare
+
+Optionally update Cloudflare DNS entry with new instance's public IP exporting the env vars bellow then running `make cloudflare-update`
+
+~~~~
+export CLOUDFLARE_TOKEN=xxxxxxxxxxxxxxxxxx
+export ZONE_ID=zzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
+export RECORD=minecraft.yourdomain.com
+~~~~
 
 ## Sources
 

@@ -1,9 +1,5 @@
 #!/bin/bash
 # set -ex
-# Set the variables below to use make cloudflare-update
-# CLOUDFLARE_TOKEN=xxxxxxx
-# ZONE_ID=yyyyyy
-# RECORD=minecraft.domain.com
 
 if [ ! -z "$CLOUDFLARE_TOKEN" ] || [ ! -z "$ZONE_ID" ] || [ ! -z "$RECORD" ]; then
 
