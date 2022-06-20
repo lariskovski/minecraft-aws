@@ -6,7 +6,6 @@ SHELL := /bin/bash
 DATA_DIR := data
 COMPUTE_DIR := compute
 IMAGE_DIR := image
-BACKEND_CONFIG_FILE=config.s3.tfbackend
 
 
 ifndef AWS_ACCESS_KEY_ID
@@ -16,7 +15,8 @@ endif
 
 # DATA RESOUCES
 data-init:
-	terraform -chdir=$(DATA_DIR) init --backend-config=$(BACKEND_CONFIG_FILE)
+	source env.sh
+	terraform -chdir=$(DATA_DIR) init -backend-config "bucket=$(TF_VAR_backend_s3_bucket)" -backend-config "region=$(TF_VAR_backend_s3_region)"  -backend-config "key=$(TF_VAR_project_name)/$(TF_VAR_backend_s3_key_data)"
 
 data-validate:
 	terraform -chdir=$(DATA_DIR) fmt .
@@ -53,7 +53,8 @@ packer-build: packer-validate
 
 # COMPUTE RESOURCES
 compute-init:
-	terraform -chdir=$(COMPUTE_DIR) init --backend-config=$(BACKEND_CONFIG_FILE)
+	source env.sh
+	terraform -chdir=$(COMPUTE_DIR) init -backend-config "bucket=$(TF_VAR_backend_s3_bucket)" -backend-config "region=$(TF_VAR_backend_s3_region)"  -backend-config "key=$(TF_VAR_project_name)/$(TF_VAR_backend_s3_key_compute)"
 
 compute-validate:
 	terraform -chdir=$(COMPUTE_DIR) fmt .

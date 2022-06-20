@@ -1,3 +1,0 @@
-bucket = "tfstates-s3-bucket-name"
-key    = "minecraft/compute/terraform.tfstate"
-region = "us-east-1"

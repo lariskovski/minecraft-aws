@@ -13,16 +13,15 @@
 
 ## Usage Instructions
 
-- Export AWS credentials:
+- Export AWS credentials and bucket for tfstate:
 
 ~~~~
 export AWS_ACCESS_KEY_ID=XXXXXXXXXXXXXXXXXX
 export AWS_SECRET_ACCESS_KEY=ZZZZZZZZZZZZZZZZZZZZZZZZ
+export TF_VAR_backend_s3_bucket="tfstates-bucket"
 ~~~~
 
 - Edit env.sh accordingly
-
-- Rename `config.s3.tfbackend.example` to `config.s3.tfbackend` and edit with the right S3 config. On both data and compute dirs.
 
 - Deploy data resources: `make data-plan` and `make data-apply` 
 
