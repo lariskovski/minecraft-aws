@@ -2,7 +2,9 @@ name: Deploy EC2
 
 on:
   workflow_dispatch
-  push
+  push:
+    branches:    
+      - 'pipeline'
 
 jobs:
   build:
