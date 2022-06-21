@@ -1,0 +1,33 @@
+name: Deploy EC2
+
+on:
+  workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: us-east-1
+
+      - name: Checkout repository content
+        # uses: actions/checkout@v2 # Checkout the repository content to github runner.
+        uses: actions/checkout@v3 # Checkout the repository content to github runner.
+
+      - name: Terraform init
+        run: make compute-init
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: us-east-1
+          AWS_DEFAULT_OUTPUT: json
+          TF_VAR_backend_s3_bucket: ${{ secrets.TF_VAR_backend_s3_bucket }}
+
+      - name: Terraform plan
+        run: make compute-plan
+
+      - name: Terraform plan
+        run: make compute-apply
