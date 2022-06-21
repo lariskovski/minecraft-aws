@@ -13,5 +13,8 @@ export TF_VAR_backend_s3_key_data="data/terraform.tfstate"
 export PKR_VAR_project_name=$TF_VAR_project_name
 export PKR_VAR_region=$TF_VAR_region
 
+export HELLO="WOLRD"
+echo "source active"
+
 # Optional for make cloudflare-update
 # set the variables on the cloudflare-update.sh file
