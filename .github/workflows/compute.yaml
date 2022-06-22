@@ -32,5 +32,5 @@ jobs:
       - name: Terraform plan
         run: make data-plan
 
-      - name: Terraform plan
+      - name: Terraform apply
         run: make data-apply
