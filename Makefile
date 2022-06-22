@@ -69,8 +69,7 @@ compute-validate:
 	terraform -chdir=$(COMPUTE_DIR) validate .
 
 compute-plan: compute-validate
-	# terraform -chdir=$(DATA_DIR) output -json | jq -r '@sh "\nexport TF_VAR_sg_default_id=\(.sg_default_id.value)\nexport TF_VAR_subnet_id=\(.subnet_id.value)\nexport TF_VAR_sg_application_id=\(.sg_application_id.value)\nexport PKR_VAR_sg_default_id=\(.sg_default_id.value)\nexport PKR_VAR_subnet_id=\(.subnet_id.value)\nexport PKR_VAR_sg_application_id=\(.sg_application_id.value)"' >> temp-env.sh
-	# source temp-env.sh && rm -f temp-env.sh
+	source env.sh
 	terraform -chdir=$(COMPUTE_DIR) plan -out plan
 
 compute-apply:
@@ -78,10 +77,6 @@ compute-apply:
 	rm -rf $(COMPUTE_DIR)/plan
 
 compute-destroy:
-	# source env.sh
-	# terraform -chdir=$(DATA_DIR) output -json | jq -r '@sh "\nexport TF_VAR_sg_default_id=\(.sg_default_id.value)\nexport TF_VAR_subnet_id=\(.subnet_id.value)\nexport TF_VAR_sg_application_id=\(.sg_application_id.value)\nexport PKR_VAR_sg_default_id=\(.sg_default_id.value)\nexport PKR_VAR_subnet_id=\(.subnet_id.value)\nexport PKR_VAR_sg_application_id=\(.sg_application_id.value)"' >> temp-env.sh
-	# source temp-env.sh && rm -f temp-env.sh
-	# echo "terraform -chdir=$(COMPUTE_DIR) destroy"
 	terraform -chdir=$(COMPUTE_DIR) destroy
 
 
