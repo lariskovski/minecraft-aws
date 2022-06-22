@@ -1,7 +1,10 @@
 name: Deploy Data and Base TF infrastructure
 
 on:
-  workflow_dispatch
+  workflow_dispatch:
+  push:
+    branches:    
+      - 'pipeline'
 
 jobs:
   terraform:
@@ -26,8 +29,11 @@ jobs:
       - name: Terraform init
         run: make data-init
 
-      - name: Terraform plan
-        run: make data-plan
+      # - name: Terraform plan
+      #   run: make data-plan
 
-      - name: Terraform apply
-        run: make data-apply
+      # - name: Terraform apply
+      #   run: make data-apply
+
+      - name: Terraform destroy
+        run: make data-destroy
