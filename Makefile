@@ -7,9 +7,9 @@ DATA_DIR := data
 COMPUTE_DIR := compute
 IMAGE_DIR := image
 
-TF_VAR_project_name:=minecraft
+TF_VAR_project_name:=minecraftv2
 TF_VAR_region:=us-east-1
-TF_VAR_availability_zone_name:=us-east-1c
+TF_VAR_availability_zone_name:=us-east-1a
 TF_VAR_instance_type:=t2.small
 TF_VAR_backend_s3_region:=$(TF_VAR_region)
 TF_VAR_backend_s3_key_compute:=compute/terraform.tfstate
