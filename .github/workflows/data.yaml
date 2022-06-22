@@ -1,4 +1,4 @@
-name: Deploy EC2
+name: Deploy Data and Base TF infrastructure
 
 on:
   workflow_dispatch
