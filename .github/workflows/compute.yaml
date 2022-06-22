@@ -36,4 +36,4 @@ jobs:
       #   run: make compute-apply
 
       - name: Terraform destroy
-        run: make data-destroy
+        run: make compute-destroy
