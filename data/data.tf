@@ -10,9 +10,8 @@ resource "aws_efs_file_system" "efs-minecraft" {
 data "aws_route53_zone" "selected" {
   name         = "minecraft.internal"
   private_zone = true
-  filter {
-    name   = "tag:Project"
-    values = [var.project_name]
+  tags = {
+    Project = var.project_name
   }
 }
 
