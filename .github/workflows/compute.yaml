@@ -34,3 +34,12 @@ jobs:
 
       - name: Terraform apply
         run: make data-apply
+
+      - name: Terraform init
+        run: make compute-init
+
+      - name: Terraform plan
+        run: make compute-plan
+
+      - name: Terraform apply
+        run: make compute-apply
