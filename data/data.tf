@@ -10,6 +10,7 @@ resource "aws_efs_file_system" "efs-minecraft" {
 data "aws_route53_zone" "selected" {
   name         = "minecraft.internal"
   private_zone = true
+  vpc_id       = data.aws_vpc.default.id
 }
 
 resource "aws_route53_record" "this" {
