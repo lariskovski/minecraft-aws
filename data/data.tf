@@ -7,6 +7,11 @@ resource "aws_efs_file_system" "efs-minecraft" {
   }
 }
 
+resource "aws_efs_mount_target" "this" {
+  file_system_id = aws_efs_file_system.efs-minecraft.id
+  subnet_id      = aws_subnet.public.id
+}
+
 data "aws_route53_zone" "selected" {
   name         = "minecraft.internal"
   private_zone = true
