@@ -29,11 +29,11 @@ jobs:
       - name: Terraform init
         run: make compute-init
 
-      # - name: Terraform plan
-      #   run: make compute-plan
+      - name: Terraform plan
+        run: make compute-plan
 
-      # - name: Terraform apply
-      #   run: make compute-apply
+      - name: Terraform apply
+        run: make compute-apply
 
-      - name: Terraform destroy
-        run: make compute-destroy
+      # - name: Terraform destroy
+      #   run: make compute-destroy
