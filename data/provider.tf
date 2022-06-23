@@ -3,7 +3,7 @@ provider "aws" {
   region = var.region
   default_tags {
     tags = {
-      Project = "minecraft"
+      Project = var.project_name
     }
   }
 }

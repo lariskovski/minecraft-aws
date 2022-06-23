@@ -7,6 +7,15 @@ DATA_DIR := data
 COMPUTE_DIR := compute
 IMAGE_DIR := image
 
+TF_VAR_project_name:=minecraftv2
+TF_VAR_region:=us-east-1
+TF_VAR_availability_zone_name:=us-east-1a
+TF_VAR_instance_type:=t2.small
+TF_VAR_backend_s3_region:=$(TF_VAR_region)
+TF_VAR_backend_s3_key_compute:=compute/terraform.tfstate
+TF_VAR_backend_s3_key_data:=data/terraform.tfstate
+PKR_VAR_project_name:=$(TF_VAR_project_name)
+PKR_VAR_region:=$(TF_VAR_region)
 
 ifndef AWS_ACCESS_KEY_ID
 $(error AWS_ACCESS_KEY_ID is not set. Please set it before trying again.)
@@ -53,7 +62,6 @@ packer-build: packer-validate
 
 # COMPUTE RESOURCES
 compute-init:
-	source env.sh
 	terraform -chdir=$(COMPUTE_DIR) init -backend-config "bucket=$(TF_VAR_backend_s3_bucket)" -backend-config "region=$(TF_VAR_backend_s3_region)"  -backend-config "key=$(TF_VAR_project_name)/$(TF_VAR_backend_s3_key_compute)"
 
 compute-validate:
@@ -62,8 +70,6 @@ compute-validate:
 
 compute-plan: compute-validate
 	source env.sh
-	terraform -chdir=$(DATA_DIR) output -json | jq -r '@sh "\nexport TF_VAR_sg_default_id=\(.sg_default_id.value)\nexport TF_VAR_subnet_id=\(.subnet_id.value)\nexport TF_VAR_sg_application_id=\(.sg_application_id.value)\nexport PKR_VAR_sg_default_id=\(.sg_default_id.value)\nexport PKR_VAR_subnet_id=\(.subnet_id.value)\nexport PKR_VAR_sg_application_id=\(.sg_application_id.value)"' >> temp-env.sh
-	source temp-env.sh && rm -f temp-env.sh
 	terraform -chdir=$(COMPUTE_DIR) plan -out plan
 
 compute-apply:
@@ -72,10 +78,7 @@ compute-apply:
 
 compute-destroy:
 	source env.sh
-	terraform -chdir=$(DATA_DIR) output -json | jq -r '@sh "\nexport TF_VAR_sg_default_id=\(.sg_default_id.value)\nexport TF_VAR_subnet_id=\(.subnet_id.value)\nexport TF_VAR_sg_application_id=\(.sg_application_id.value)\nexport PKR_VAR_sg_default_id=\(.sg_default_id.value)\nexport PKR_VAR_subnet_id=\(.subnet_id.value)\nexport PKR_VAR_sg_application_id=\(.sg_application_id.value)"' >> temp-env.sh
-	source temp-env.sh && rm -f temp-env.sh
-	# echo "terraform -chdir=$(COMPUTE_DIR) destroy"
-	terraform -chdir=$(COMPUTE_DIR) destroy
+	terraform -chdir=$(COMPUTE_DIR) destroy -auto-approve 
 
 
 cloudflare-update:

@@ -1,3 +1,31 @@
+data "aws_vpc" "selected" {
+  filter {
+    name   = "tag:Project"
+    values = [var.project_name]
+  }
+}
+
+data "aws_subnet" "selected" {
+  filter {
+    name   = "tag:Project"
+    values = [var.project_name]
+  }
+}
+
+
+data "aws_security_group" "default" {
+  vpc_id = data.aws_vpc.selected.id
+  name   = "default"
+}
+
+data "aws_security_group" "custom" {
+  vpc_id = data.aws_vpc.selected.id
+  filter {
+    name   = "tag:Project"
+    values = [var.project_name]
+  }
+}
+
 
 data "aws_ami" "ami" {
   most_recent = true
@@ -23,8 +51,8 @@ resource "aws_instance" "ec2" {
   iam_instance_profile        = "${var.project_name}-SSMInstanceProfile"
   instance_type               = var.instance_type
 
-  vpc_security_group_ids = [var.sg_application_id, var.sg_default_id] # default sg for efs connection
-  subnet_id              = var.subnet_id
+  vpc_security_group_ids = [data.aws_security_group.custom.id, data.aws_security_group.default.id] # default sg for efs connection
+  subnet_id              = data.aws_subnet.selected.id
 
   root_block_device {
     volume_type = "gp3"

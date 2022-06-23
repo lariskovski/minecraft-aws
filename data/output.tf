@@ -1,5 +1,5 @@
 output "subnet_id" {
-  value = data.aws_subnet.this.id
+  value = aws_subnet.public.id
 }
 
 output "sg_default_id" {
