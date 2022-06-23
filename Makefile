@@ -77,7 +77,8 @@ compute-apply:
 	rm -rf $(COMPUTE_DIR)/plan
 
 compute-destroy:
-	terraform -chdir=$(COMPUTE_DIR) destroy
+	source env.sh
+	terraform -chdir=$(COMPUTE_DIR) destroy -auto-approve 
 
 
 cloudflare-update:

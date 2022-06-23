@@ -35,5 +35,5 @@ jobs:
       # - name: Terraform apply
       #   run: make data-apply
 
-      - name: Terraform destroy
-        run: make data-destroy
+      # - name: Terraform destroy
+      #   run: make data-destroy
