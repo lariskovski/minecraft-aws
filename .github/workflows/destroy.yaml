@@ -1,7 +1,9 @@
 name: Destroy Compute
 
 on:
-  workflow_dispatch
+  workflow_dispatch:
+  repository_dispatch:
+    types: destroy
 
 jobs:
   destroy-compute:
@@ -20,5 +22,8 @@ jobs:
       - name: Terraform init
         run: make compute-init
 
+      # - name: Terraform destroy
+      #   run: make compute-destroy
+
       - name: Terraform destroy
-        run: make compute-destroy
+        run: echo "destroyed"
