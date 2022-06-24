@@ -1,5 +1,9 @@
 # Minecraft Server for AWS
 
+<img src="https://pa1.narvii.com/6035/d4c70239439859292ff9ab0eb0d7ad0e1c4a4faa_hq.gif" alt="drawing" width="200" height="200"/>
+
+Very cool Minecraft server infrastructure setup for AWS. Created for fun and to practice some skills. Making use of EC2, EFS, S3, Route 53, IAM and other AWS services. Terraform and Packer tools (also Cloudflare).
+
 ## Getting Started
 
 ### Dependencies
@@ -78,6 +82,12 @@ export RECORD=minecraft.yourdomain.com
 
 ## Resources
 
-- [New minecraft releases](https://www.minecraft.net/en-us/download/server)
+[New minecraft releases](https://www.minecraft.net/en-us/download/server)
+
+[Github and Makefiles](https://www.freecodecamp.org/news/a-lightweight-tool-agnostic-ci-cd-flow-with-github-actions/)
+
+[Manually Run Github Action](https://christinavhastenrath.medium.com/how-to-run-github-actions-manually-afebbe77d325)
+
+[Github Doc](https://docs.github.com/en/rest/actions)
 
 
