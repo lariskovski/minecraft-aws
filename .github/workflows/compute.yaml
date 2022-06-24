@@ -1,10 +1,7 @@
 name: Deploy EC2
 
 on:
-  workflow_dispatch:
-  push:
-    branches:    
-      - 'add-cloudflare-step'
+  workflow_dispatch
 
 jobs:
   create-compute:
