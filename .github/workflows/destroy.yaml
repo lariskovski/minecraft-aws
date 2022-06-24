@@ -22,8 +22,5 @@ jobs:
       - name: Terraform init
         run: make compute-init
 
-      # - name: Terraform destroy
-      #   run: make compute-destroy
-
       - name: Terraform destroy
-        run: echo "destroyed"
+        run: make compute-destroy
