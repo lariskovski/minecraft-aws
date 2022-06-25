@@ -8,7 +8,7 @@ packer {
 }
 
 source "amazon-ebs" "this" {
-  ami_name      = "amzn2-ami-minecraft-base-version2"
+  ami_name      = "amzn2-ami-minecraft-base-${uuidv4()}"
   region        = var.region
   instance_type = "t2.micro"
 
