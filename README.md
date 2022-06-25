@@ -61,6 +61,30 @@ export ZONE_ID=zzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
 export RECORD=minecraft.yourdomain.com
 ~~~~
 
+## Auto Destroy
+
+Python script checks via rcon for online players. If its 0 for more than 15 minutes, script calls Github API to trigger the destroy workflow.
+
+### Setup
+
+[Repository dispatch documentation](https://docs.github.com/en/rest/repos/repos#create-a-repository-dispatch-event)
+
+Create a personal Github [token](https://github.com/settings/tokens)
+
+> Make sure you add repo and workflow permissions
+
+The API call:
+
+~~~~
+USERNAME=lariskovski
+REPO=minecraft-aws
+TOKEN=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
+curl --request POST \
+  --url 'https://api.github.com/repos/lariskovski/minecraft-aws/dispatches' \
+  --header 'authorization: Bearer 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' \
+  --data '{"event_type": "destroy"}'
+~~~~
+
 ## Sources
 
 - New minecraft releases on https://www.minecraft.net/en-us/download/server

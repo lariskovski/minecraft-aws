@@ -31,7 +31,7 @@ data "aws_ami" "ami" {
   most_recent = true
 
   filter {
-    name   = "name"
+    name = "name"
     values = ["amzn2-ami-minecraft-base*"]
   }
 
@@ -50,6 +50,8 @@ resource "aws_instance" "ec2" {
   availability_zone           = var.availability_zone_name
   iam_instance_profile        = "${var.project_name}-SSMInstanceProfile"
   instance_type               = var.instance_type
+  
+  user_data              = templatefile("export_vars.tftpl", { github_user = "${var.GITHUB_USER}", github_repo = "${var.GITHUB_REPO}", github_auth_token = "${var.GITHUB_AUTH_TOKEN}" })
 
   vpc_security_group_ids = [data.aws_security_group.custom.id, data.aws_security_group.default.id] # default sg for efs connection
   subnet_id              = data.aws_subnet.selected.id

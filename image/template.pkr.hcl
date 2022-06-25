@@ -8,7 +8,7 @@ packer {
 }
 
 source "amazon-ebs" "this" {
-  ami_name      = "amzn2-ami-minecraft-base"
+  ami_name      = "amzn2-ami-minecraft-base-version2"
   region        = var.region
   instance_type = "t2.micro"
 
@@ -35,6 +35,23 @@ build {
 
   provisioner "shell" {
     script = var.script_path
+
+    pause_before = "10s"
+    timeout      = "10s"
+  }
+
+  provisioner "file" {
+    source      = "image/destroy-monitor.py"
+    destination = "/tmp/destroy-monitor.py"
+  }
+
+  provisioner "file" {
+    source      = "image/destroy-monitor.sh"
+    destination = "/tmp/destroy-monitor.sh"
+  }
+
+  provisioner "shell" {
+    script = "image/setup-destroy-monitor.sh"
 
     pause_before = "10s"
     timeout      = "10s"
