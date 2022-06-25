@@ -12,6 +12,9 @@ jobs:
       AWS_DEFAULT_REGION: us-east-1
       AWS_DEFAULT_OUTPUT: json
       TF_VAR_backend_s3_bucket: ${{ secrets.TF_VAR_backend_s3_bucket }}
+      CLOUDFLARE_TOKEN: ${{ secrets.CLOUDFLARE_TOKEN }}
+      ZONE_ID: ${{ secrets.ZONE_ID }}
+      RECORD: ${{ secrets.RECORD }}
 
     steps:
       - name: Checkout repository content
@@ -25,4 +28,7 @@ jobs:
 
       - name: Terraform apply
         run: make compute-apply
+
+      - name: Cloudflare update
+        run: make cloudflare-update
 

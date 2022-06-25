@@ -1,7 +1,9 @@
 name: Destroy Compute
 
 on:
-  workflow_dispatch
+  workflow_dispatch:
+  repository_dispatch:
+    types: destroy
 
 jobs:
   destroy-compute:
