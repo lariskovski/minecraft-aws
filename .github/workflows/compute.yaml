@@ -15,6 +15,7 @@ jobs:
       CLOUDFLARE_TOKEN: ${{ secrets.CLOUDFLARE_TOKEN }}
       ZONE_ID: ${{ secrets.ZONE_ID }}
       RECORD: ${{ secrets.RECORD }}
+      WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
 
     steps:
       - name: Checkout repository content
@@ -31,3 +32,6 @@ jobs:
 
       - name: Cloudflare update
         run: make cloudflare-update
+      
+      - name: Discord notification
+        run: curl -H "Content-Type: application/json" -d '{"username": "Minebot", "content": "Server warming up"}'  $WEBHOOK_URL
