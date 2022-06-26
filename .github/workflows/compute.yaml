@@ -33,5 +33,5 @@ jobs:
       - name: Cloudflare update
         run: make cloudflare-update
       
-      - name: Discord notification
-        run: curl -H "Content-Type: application/json" -d '{"username": "Minebot", "content": "Server warming up"}'  $WEBHOOK_URL
+      # - name: Discord notification
+      #   run: curl -H "Content-Type: application/json" -d '{"username": "Minebot", "content": "Server warming up"}'  $WEBHOOK_URL
