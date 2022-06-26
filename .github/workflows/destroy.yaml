@@ -20,8 +20,9 @@ jobs:
       - name: Checkout repository content
         uses: actions/checkout@v3 # Checkout the repository content to github runner.
 
-      # - name: Discord notification
-      #   run: curl -H "Content-Type: application/json" -d '{"username": "Minebot", "content": "Server shutting down"}'  $WEBHOOK_URL
+      - name: Discord notification
+        run: |
+          curl -H "Content-Type: application/json" -d '{"username": "Minebot", "content": "Server shutting down"}'  $WEBHOOK_URL
 
       - name: Terraform init
         run: make compute-init
