@@ -16,7 +16,10 @@ jobs:
       ZONE_ID: ${{ secrets.ZONE_ID }}
       RECORD: ${{ secrets.RECORD }}
       WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
-
+      TF_VAR_GITHUB_USER: ${{ secrets.TF_VAR_GITHUB_USER }}
+      TF_VAR_GITHUB_REPO: ${{ secrets.TF_VAR_GITHUB_REPO }}
+      TF_VAR_GITHUB_AUTH_TOKEN: ${{ secrets.TF_VAR_GITHUB_AUTH_TOKEN }}
+      
     steps:
       - name: Checkout repository content
         uses: actions/checkout@v3 # Checkout the repository content to github runner.
@@ -32,7 +35,7 @@ jobs:
 
       - name: Cloudflare update
         run: make cloudflare-update
-      
+
       - name: Discord notification
         run: |
           curl -H "Content-Type: application/json" -d '{"username": "Creeper", "content": "Server warming up"}'  $WEBHOOK_URL

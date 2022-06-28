@@ -80,6 +80,16 @@ export ZONE_ID=zzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
 export RECORD=minecraft.yourdomain.com
 ~~~~
 
+### Destroy Monitor
+
+Python script checks via rcon for online players. If its 0 for more than 20 minutes, script calls Github API to trigger the destroy workflow.
+
+[Repository dispatch documentation](https://docs.github.com/en/rest/repos/repos#create-a-repository-dispatch-event)
+
+Create a personal Github [token](https://github.com/settings/tokens)
+
+> Make sure you add repo and workflow permissions
+
 ## Resources
 
 [New minecraft releases](https://www.minecraft.net/en-us/download/server)
