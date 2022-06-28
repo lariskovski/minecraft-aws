@@ -15,7 +15,10 @@ jobs:
       AWS_DEFAULT_OUTPUT: json
       TF_VAR_backend_s3_bucket: ${{ secrets.TF_VAR_backend_s3_bucket }}
       WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
-
+      TF_VAR_GITHUB_USER: ${{ secrets.TF_VAR_GITHUB_USER }}
+      TF_VAR_GITHUB_REPO: ${{ secrets.TF_VAR_GITHUB_REPO }}
+      TF_VAR_GITHUB_AUTH_TOKEN: ${{ secrets.TF_VAR_GITHUB_AUTH_TOKEN }}
+      
     steps:
       - name: Checkout repository content
         uses: actions/checkout@v3 # Checkout the repository content to github runner.
