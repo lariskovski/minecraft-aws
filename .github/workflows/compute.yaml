@@ -21,6 +21,10 @@ jobs:
       TF_VAR_GITHUB_AUTH_TOKEN: ${{ secrets.TF_VAR_GITHUB_AUTH_TOKEN }}
       
     steps:
+      - name: Discord notification
+        run: |
+          curl -H "Content-Type: application/json" -d '{"username": "Creeper", "content": "Server warming up"}'  $WEBHOOK_URL
+  
       - name: Checkout repository content
         uses: actions/checkout@v3 # Checkout the repository content to github runner.
 
@@ -35,7 +39,3 @@ jobs:
 
       - name: Cloudflare update
         run: make cloudflare-update
-
-      - name: Discord notification
-        run: |
-          curl -H "Content-Type: application/json" -d '{"username": "Creeper", "content": "Server warming up"}'  $WEBHOOK_URL
